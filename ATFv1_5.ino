@@ -11,7 +11,7 @@ Author:	Seth Gillies
 #include <SPI.h>
 #include "genieArduino.h"
 
-
+//This is a test.
 
 ////GLOBAL VARIABLE STRUCTURES////
 struct gsCal {
