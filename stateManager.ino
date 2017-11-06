@@ -64,15 +64,15 @@ void transitionTo(byte requestedState)
 		}
 		break;
 	
-	case SUSPENDING:
+	case PAUSING:
 		//Do whatever for scenario
 		break;
 	
-	case SUSPENDED:
+	case PAUSED:
 		//Do whatever for scenario
 		break;
 	
-	case UNSUSPENDING:
+	case UNPAUSING:
 		//Do whatever for scenario
 		break;
 	
@@ -152,10 +152,10 @@ void transitionTo(byte requestedState)
 //if (gCurrentState == HOLDING && gRequestedState == HELD) scenario = 12;
 //if (gCurrentState == HELD && gRequestedState == UNHOLDING) scenario = 13;  //Resume PB
 //if (gCurrentState == UNHOLDING && gRequestedState == EXECUTE) scenario = 14;
-//if (gCurrentState == EXECUTE && gRequestedState == SUSPENDING) scenario = 15;  //Suspend PB
-//if (gCurrentState == SUSPENDING && gRequestedState == SUSPENDED) scenario = 16;
-//if (gCurrentState == SUSPENDED && gRequestedState == UNSUSPENDING) scenario = 17;  //Resume PB
-//if (gCurrentState == UNSUSPENDING && gRequestedState == EXECUTE) scenario = 18;
+//if (gCurrentState == EXECUTE && gRequestedState == PAUSING) scenario = 15;  //Suspend PB
+//if (gCurrentState == PAUSING && gRequestedState == PAUSED) scenario = 16;
+//if (gCurrentState == PAUSED && gRequestedState == UNPAUSING) scenario = 17;  //Resume PB
+//if (gCurrentState == UNPAUSING && gRequestedState == EXECUTE) scenario = 18;
 //if ((gCurrentState >= 1 && gCurrentState <= 12) && gRequestedState == STOPPING) scenario = 19; //Stop PB
 //if ((gCurrentState >= 1 && gCurrentState <= 15) && gRequestedState == ABORTING) scenario = 20;  //Abort PB
 //if (gCurrentState == IDLE && gRequestedState == CONFIGURATION) scenario = 21;  //Configure Mode

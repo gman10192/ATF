@@ -43,7 +43,7 @@ gsCal gCal;
 gsConfig gConfig;
 PID myPID(&gPidInput, &gPidOutput, &gPidSetpoint, 0, 0, 0, DIRECT);
 Genie genie;
-StateManagerClass stateManager;
+StateManagerClass stateManager{};  //Intialize object with defualt states (all zero)
 bool gFault = FALSE;
 byte gCurrentState = 0;
 byte gRequestedState = 0;
@@ -65,18 +65,18 @@ bool gResumeButtonState = FALSE;
 #define HOLDING 6
 #define HELD 7
 #define UNHOLDING 8
-#define SUSPENDING 9
-#define SUSPENDED 10
-#define UNSUSPENDING 11
+#define PAUSING 9
+#define PAUSED 10
+#define UNPAUSING 11
 #define RESETTING 12
 #define STOPPED 13
 #define STOPPING 14
-#define CLEARING 15
 #define ABORTED 16
 #define ABORTING 17
 #define CONFIGURATION 18
 #define MANUAL_MODE 19
 #define FAULTED 20
+#define WAITING 21
 
 
 ////GLOBAL CONSTANTS////
