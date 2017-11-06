@@ -20,14 +20,14 @@ genieFrame Event;
 	
 	//Event handlers for buttons pressed on Main Screen (Form0)
 	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_TRACKBAR, 0)) gExchVolumeSetpointTemp = genie.GetEventData(&Event);
-	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 0)) transitionTo(STARTING);
-	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 1)) transitionTo(STOPPING);
-	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 2)) transitionTo(ABORTING);
-	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 3)) transitionTo(HOLDING);
+	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 0)) stateManager.transitionTo(STARTING);
+	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 1)) stateManager.transitionTo(STOPPING);
+	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 2)) stateManager.transitionTo(ABORTING);
+	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 3)) stateManager.transitionTo(HOLDING);
 	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 4)) gResumeButtonState = TRUE; // transitionTo(UNHOLDING);  // This button is used in sequence, so this might not work...  Unles the StateManager is configured for it...
-	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 5)) transitionTo(RESETTING);
-	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 7)) transitionTo(CONFIGURATION);
-	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 9)) transitionTo(MANUAL_MODE);
+	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 5)) stateManager.transitionTo(RESETTING);
+	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 7)) stateManager.transitionTo(CONFIGURATION);
+	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 9)) stateManager.transitionTo(MANUAL_MODE);
 	
 	//Event handlers for buttons pressed on Manual Mode screen (Form4), actual event is from the indicator LED object
 	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_USER_LED, 1)) digitalWrite(gcBypassCVPin, HIGH);

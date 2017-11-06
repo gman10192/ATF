@@ -40,12 +40,18 @@
     <ClInclude Include="__vm\.ATF.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="stateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="genieArduino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sgPID.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

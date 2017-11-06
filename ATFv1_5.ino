@@ -6,12 +6,12 @@ Author:	Seth Gillies
 */
 
 ////LIBRARIES////
+#include "stateManager.h"
 #include "sgPID.h"
 #include "EEPROM.h"
 #include <SPI.h>
 #include "genieArduino.h"
 
-//This is a test.
 
 ////GLOBAL VARIABLE STRUCTURES////
 struct gsCal {
@@ -43,6 +43,7 @@ gsCal gCal;
 gsConfig gConfig;
 PID myPID(&gPidInput, &gPidOutput, &gPidSetpoint, 0, 0, 0, DIRECT);
 Genie genie;
+StateManagerClass stateManager;
 bool gFault = FALSE;
 byte gCurrentState = 0;
 byte gRequestedState = 0;
