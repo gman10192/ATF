@@ -7,13 +7,16 @@ void stateResetting(void) {
 	sendAnalogData(0, gcPressRegSSPin); //Disable pressure regulator for tank
 	digitalWrite(gcVentTankCVPin, LOW);	//Open tank vent
 	delay(150);
+	
 	if (verifyNoFlowNoPressure() == TRUE) {
-		transitionTo(IDLE);	//This signifies the system was Reset sucessfully, therefore a request to transition to the IDLE state is made.
-		gResetComplete = TRUE;
+		StateManager.transitionTo(IDLE);	//This signifies the system was Reset sucessfully, therefore a request to transition to the IDLE state is made.
 	}
 	else {
+		//ERROR Handler
+		gFault = TRUE;
+		gFaultMessage = 10; //Unable to reset the system
 		return;
-		//ERROR Handler?
+		
 	}
 	return;
 }

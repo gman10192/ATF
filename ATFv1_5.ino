@@ -51,7 +51,6 @@ byte gPreviousState = 0;
 byte gExchVolumeSetpoint = 0;		//in quarts
 byte gExchVolumeSetpointTemp = 0;  //In quarts
 byte gFaultMessage = 0;
-bool gResetComplete = FALSE;
 bool gResumeButtonState = FALSE;
 
 
@@ -77,6 +76,7 @@ bool gResumeButtonState = FALSE;
 #define MANUAL_MODE 19
 #define FAULTED 20
 #define WAITING 21
+#define DONE_WAITING 22
 
 
 ////GLOBAL CONSTANTS////

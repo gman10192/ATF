@@ -28,6 +28,7 @@ genieFrame Event;
 	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 5)) stateManager.transitionTo(RESETTING);
 	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 7)) stateManager.transitionTo(CONFIGURATION);
 	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 9)) stateManager.transitionTo(MANUAL_MODE);
+	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, 27)) stateManager.transitionTo(DONE_WAITING);
 	
 	//Event handlers for buttons pressed on Manual Mode screen (Form4), actual event is from the indicator LED object
 	if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_USER_LED, 1)) digitalWrite(gcBypassCVPin, HIGH);

@@ -18,18 +18,6 @@
 class StateManagerClass
 {
 	static byte _requestedState, _currentState, _previousState;
-	bool stateStarting(void);
-	bool stateResetting(void);
-	bool stateStopping(void);
-	bool stateWaiting(void);
-	bool stateHolding(void);
-	bool stateUnHolding(void);
-	bool statePausing(void);
-	bool stateUnPausing(void);
-	bool stateCompleting(void);
-	bool stateAborting(void);
-
-
 
 protected:
 
