@@ -113,7 +113,6 @@
   <ItemGroup>
     <ClInclude Include="genieArduino.h" />
     <ClInclude Include="sgPID.h" />
-    <ClInclude Include="stateManager.h" />
     <ClInclude Include="__vm\.ATF.vsarduino.h" />
     <ClInclude Include="__vm\.ATFv1_5.vsarduino.h" />
   </ItemGroup>
