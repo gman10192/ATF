@@ -6,7 +6,6 @@ Author:	Seth Gillies
 */
 
 ////LIBRARIES////
-#include "stateManager.h"
 #include "sgPID.h"
 #include "EEPROM.h"
 #include <SPI.h>
