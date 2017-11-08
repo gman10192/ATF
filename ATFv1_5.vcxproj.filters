@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ATFv1_5.ino" />
-    <None Include="stateManager.ino" />
     <None Include="displayEventHandler.ino" />
     <None Include="flowPulse.ino" />
     <None Include="flowTime.ino" />
@@ -26,6 +25,7 @@
     <None Include="stateResetting.ino" />
     <None Include="verifyNoFlowNoPressure.ino" />
     <None Include="stateExecute.ino" />
+    <None Include="stateWaiting.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.ATFv1_5.vsarduino.h">
@@ -38,9 +38,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="__vm\.ATF.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -97,13 +97,13 @@
     <None Include="stateExecute.ino">
       <FileType>CppCode</FileType>
     </None>
-    <None Include="stateManager.ino">
-      <FileType>CppCode</FileType>
-    </None>
     <None Include="stateResetting.ino">
       <FileType>CppCode</FileType>
     </None>
     <None Include="stateStarting.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="stateWaiting.ino">
       <FileType>CppCode</FileType>
     </None>
     <None Include="verifyNoFlowNoPressure.ino">
@@ -113,7 +113,6 @@
   <ItemGroup>
     <ClInclude Include="genieArduino.h" />
     <ClInclude Include="sgPID.h" />
-    <ClInclude Include="stateManager.h" />
     <ClInclude Include="__vm\.ATF.vsarduino.h" />
     <ClInclude Include="__vm\.ATFv1_5.vsarduino.h" />
   </ItemGroup>

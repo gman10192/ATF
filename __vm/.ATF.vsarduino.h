@@ -83,9 +83,9 @@ typedef void *__builtin_va_list;
 #include "getAnalogData.ino"
 #include "sendAnalogData.ino"
 #include "stateExecute.ino"
-#include "stateManager.ino"
 #include "stateResetting.ino"
 #include "stateStarting.ino"
+#include "stateWaiting.ino"
 #include "verifyNoFlowNoPressure.ino"
 #endif
 #endif

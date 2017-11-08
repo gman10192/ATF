@@ -32,13 +32,14 @@ void StateManagerClass::transitionTo(byte _tempState){
 	
 	switch (_requestedState) {
 	case IDLE:
-		if (_previousState == RESETTING && gResetComplete == TRUE) {
+		if (_currentState == RESETTING) {
 			_previousState = _currentState;
 			_currentState = IDLE;
 			genie.WriteObject(GENIE_OBJ_STRINGS, 0, IDLE);
-			gResetComplete = FALSE;
 		}
-		else {
+		else {//FAULT
+			_previousState = _currentState;
+			_currentState = FAULTED;
 			gFault = TRUE;
 			gFaultMessage = 6;  //Unable to enter requested IDLE state
 		}
@@ -50,8 +51,12 @@ void StateManagerClass::transitionTo(byte _tempState){
 			genie.WriteObject(GENIE_OBJ_STRINGS, 0, STARTING);
 			stateStarting();
 		}
-		else
-			_currentState = _currentState;
+		else if (_currentState == WAITING) {
+			_previousState = _currentState;
+			_currentState = STARTING;
+			genie.WriteObject(GENIE_OBJ_STRINGS, 0, STARTING);
+		}
+		else { _currentState = _currentState; }
 		break;
 	case EXECUTE:
 		break;
@@ -83,7 +88,9 @@ void StateManagerClass::transitionTo(byte _tempState){
 			genie.WriteObject(GENIE_OBJ_STRINGS, 0, RESETTING);
 			stateResetting();
 		}
-		else {
+		else {//FAULT
+			_previousState = _currentState;
+			_currentState = FAULTED;
 			gFault = TRUE;
 			gFaultMessage = 7;  //Unable to enter requested RESETTING state
 		}
@@ -113,8 +120,24 @@ void StateManagerClass::transitionTo(byte _tempState){
 	case FAULTED:  //Not sure if I need this state in here or not...
 		break;
 	case WAITING:
+		_previousState = _currentState;
+		_currentState = WAITING;
+		genie.WriteObject(GENIE_OBJ_STRINGS, 0, WAITING);
+		stateWaiting();
 		break;
-	default:
+	case DONE_WAITING:
+		if (_currentState == WAITING) {
+			_previousState = _currentState;
+			_currentState = DONE_WAITING;
+			genie.WriteObject(GENIE_OBJ_STRINGS, 0, DONE_WAITING);
+		}
+		else {//FAULT
+			_previousState = _currentState;
+			_currentState = FAULTED;
+			gFault = TRUE;
+			gFaultMessage = 11;  //Unable to enter requested DONE WAITING state
+		}
+	default://FAULT
 		gFaultMessage = 5;
 		_currentState = FAULTED;
 		break;
@@ -142,53 +165,35 @@ void StateManagerClass::update(void) {
 
 }
 
-bool StateManagerClass::stateStarting(void) {
-	//Acting State: STARTING (2) Function for starting system.
-	//NEED TO REWRITE FOR INCLUSION IN THE STATEMANAGER CLASS
-	int _pIn = 0, _pOut = 0, _fIn = 0, _fOut = 0;
-	int _starttime = 0;
-	//Step 1: Set desired volume to be exchanged
-	genie.WriteObject(GENIE_OBJ_STRINGS, 2, 1);  //Prompt to set the exchange volume
-	_starttime = millis();
-	while (gExchVolumeSetpointTemp <= 0) {
-		genie.DoEvents();
-		delay(50);
-		if ((millis() - _starttime) > gcTimeOut) {  //ERROR: user input timeout, bail out of fucntion
-			gFault = TRUE;
-			gFaultMessage = 9; //User input timeout
-			break;
-			return;
-		}
-	}
-	gExchVolumeSetpoint = gExchVolumeSetpointTemp;
-	//Step 2:  Connect & start vehichle, wait for pressure IN & OUT readings
-	genie.WriteObject(GENIE_OBJ_STRINGS, 2, 3);  //Prompt to connect and start vehicle
-	while (gResumeButtonState != TRUE) {
-		genie.DoEvents();
-		delay(50);
-	}
-	gResumeButtonState = FALSE;
-	genie.WriteObject(GENIE_OBJ_STRINGS, 2, 4);  //Waiting for system pressure
-	_starttime = millis();
-	while ((_pIn < gcMinStartPress && _pOut < gcMinStartPress)) {
-		_pIn = getAnalogData(gcPressInSSPin);
-		delay(50);
-		_pOut = getAnalogData(gcPressInSSPin);
-		delay(50);
-		if ((millis() - _starttime) > gcTimeOut) {  //ERROR: pressure detection timeout, bail out of fucntion
-			gFault = TRUE;
-			gFaultMessage = 8; //Pressure not detected.
-			break;
-			return;
-		}
-	}
-		//Step 3: Startup complete, move on to EXECUTE state & sequence
-	transitionTo(EXECUTE);
-	return;
-}
 
 
 
 
 StateManagerClass StateManager;
 
+
+
+//if (gCurrentState == IDLE && gRequestedState == STARTING) scenario = 1;  //Start PB
+//if (gCurrentState == RESETTING && gRequestedState == IDLE) scenario = 2;
+//if (gCurrentState == STOPPED && gRequestedState == RESETTING) scenario = 3;  //Reset PB
+//if (gCurrentState == STOPPING && gRequestedState == STOPPED) scenario = 4;
+//if (gCurrentState == CLEARING && gRequestedState == STOPPED) scenario = 5;
+//if (gCurrentState == ABORTED && gRequestedState == CLEARING) scenario = 6;
+//if (gCurrentState == ABORTING && gRequestedState == ABORTED) scenario = 7;
+//if (gCurrentState == STARTING && gRequestedState == EXECUTE) scenario = 8;
+//if (gCurrentState == EXECUTE && gRequestedState == COMPLETING) scenario = 9;
+//if (gCurrentState == COMPLETING && gRequestedState == COMPLETE) scenario = 10;
+//if (gCurrentState == EXECUTE && gRequestedState == HOLDING) scenario = 11;  //Hold PB
+//if (gCurrentState == HOLDING && gRequestedState == HELD) scenario = 12;
+//if (gCurrentState == HELD && gRequestedState == UNHOLDING) scenario = 13;  //Resume PB
+//if (gCurrentState == UNHOLDING && gRequestedState == EXECUTE) scenario = 14;
+//if (gCurrentState == EXECUTE && gRequestedState == PAUSING) scenario = 15;  //Suspend PB
+//if (gCurrentState == PAUSING && gRequestedState == PAUSED) scenario = 16;
+//if (gCurrentState == PAUSED && gRequestedState == UNPAUSING) scenario = 17;  //Resume PB
+//if (gCurrentState == UNPAUSING && gRequestedState == EXECUTE) scenario = 18;
+//if ((gCurrentState >= 1 && gCurrentState <= 12) && gRequestedState == STOPPING) scenario = 19; //Stop PB
+//if ((gCurrentState >= 1 && gCurrentState <= 15) && gRequestedState == ABORTING) scenario = 20;  //Abort PB
+//if (gCurrentState == IDLE && gRequestedState == CONFIGURATION) scenario = 21;  //Configure Mode
+//if (gCurrentState == CONFIGURATION && gRequestedState == RESETTING) scenario = 22;  //Reset PB
+//if (gCurrentState == IDLE && gRequestedState == MANUAL_MODE) scenario = 23;  //Manual Mode
+//if (gCurrentState == MANUAL_MODE && gRequestedState == RESETTING) scenario = 24; //Reset PB
