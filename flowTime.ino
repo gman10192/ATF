@@ -11,7 +11,7 @@ float flowTime(short inputpin, int capturetime)
 	double timestart = millis();
 	double timeend, timethen;
 	timeend = timestart + capturetime;
-	gPulseCount = 0;	//Reset the pulse counter to zero
+	PulseCount = 0;	//Reset the pulse counter to zero
 
 	attachInterrupt(digitalPinToInterrupt(inputpin), pulse, CHANGE);  //activate interupt for pin sent to function
 
@@ -29,11 +29,11 @@ float flowTime(short inputpin, int capturetime)
 
 	switch (inputpin) //denpending upon which pulse input pin was used, do the math with the correct calibration constant
 	{
-	case gcFlowInPin:
-		result = ((gPulseCount * gCal.meterIN) / (millis() - timethen)) * 60000;
+	case pin_FlowIn:
+		result = ((PulseCount * gCal.meterIN) / (millis() - timethen)) * 60000;
 		break;
-	case gcFlowOutPin:
-		result = ((gPulseCount * gCal.meterOUT) / (millis() - timethen)) * 60000;
+	case pin_FlowOut:
+		result = ((PulseCount * gCal.meterOUT) / (millis() - timethen)) * 60000;
 		break;
 	}
 	return result;
@@ -47,11 +47,11 @@ the interupts are disabled, and enabled once calculations are complete*/
 //if ((millis() - gPrevTime) > gConfig.samplet) {
 //	detachInterrupt(digitalPinToInterrupt(18));
 //	detachInterrupt(digitalPinToInterrupt(19));
-//	gFlowRateIn = (pulsecountIN / ((millis() - gPrevTime) / 1000))*gCal.meterIN;  //gallons per actual time elapsedof 
-//	gFlowRateOut = (pulsecountOUT / ((millis() - gPrevTime) / 1000))*gCal.meterOUT; //gallons per actual time elapsed
+//	FlowRateIn = (pulsecountIN / ((millis() - gPrevTime) / 1000))*gCal.meterIN;  //gallons per actual time elapsedof 
+//	FlowRateOut = (pulsecountOUT / ((millis() - gPrevTime) / 1000))*gCal.meterOUT; //gallons per actual time elapsed
 //	gPrevTime = millis();
 //	//calculated flow rate delta and store for use with PID controller
-//	gPidInput = gFlowRateOut - gFlowRateIn;  //Negative value here is BAD for car!
+//	PidInput = FlowRateOut - FlowRateIn;  //Negative value here is BAD for car!
 //											 //Reset pulse counters and reactivate the interupt pins
 //	pulsecountIN = 0;
 //	pulsecountOUT = 0;

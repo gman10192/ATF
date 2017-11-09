@@ -13,14 +13,14 @@
 //	while (gExchVolumeSetpointTemp <= 0) {
 //		genie.DoEvents();
 //		delay(50);
-//		if ((millis() - _starttime) > gcTimeOut) {  //ERROR: user input timeout, bail out of fucntion
+//		if ((millis() - _starttime) > k_10sTimeOut) {  //ERROR: user input timeout, bail out of fucntion
 //			gFault = TRUE;
-//			gFaultMessage = 9; //User input timeout
+//			FaultMsg = 9; //User input timeout
 //			break;
 //			return;
 //		}
 //	}
-//	gExchVolumeSetpoint = gExchVolumeSetpointTemp;
+//	VolumeSP = gExchVolumeSetpointTemp;
 //	
 //	//Step 2:  Connect & start vehichle, wait for pressure IN & OUT readings
 //	genie.WriteObject(GENIE_OBJ_STRINGS, 2, 3);  //Prompt to connect and start vehicle
@@ -31,14 +31,14 @@
 //	gResumeButtonState = FALSE;
 //	genie.WriteObject(GENIE_OBJ_STRINGS, 2, 4);  //Waiting for system pressure
 //	_starttime = millis();
-//	while ((_pIn < gcMinStartPress && _pOut < gcMinStartPress)) {
-//		_pIn = getAnalogData(gcPressInSSPin);
+//	while ((_pIn < k_MinStartPress && _pOut < k_MinStartPress)) {
+//		_pIn = getAnalogData(pin_PressInSS);
 //		delay(50);
-//		_pOut = getAnalogData(gcPressInSSPin);
+//		_pOut = getAnalogData(pin_PressInSS);
 //		delay(50);
-//		if ((millis()-_starttime) > gcTimeOut) {  //ERROR: pressure detection timeout, bail out of fucntion
+//		if ((millis()-_starttime) > k_10sTimeOut) {  //ERROR: pressure detection timeout, bail out of fucntion
 //			gFault = TRUE;
-//			gFaultMessage = 8; //Pressure not detected.
+//			FaultMsg = 8; //Pressure not detected.
 //			break;
 //			return;
 //		}

@@ -14,7 +14,7 @@ float flowPulse(short inputpin, int capturepulses)
 	attachInterrupt(digitalPinToInterrupt(inputpin), pulse, CHANGE);  //activate interupt for pin sent to function
 	timestart = millis();
 
-	while (gPulseCount < capturepulses) // capture data for number of puluses requried by input to function
+	while (PulseCount < capturepulses) // capture data for number of puluses requried by input to function
 	{
 		if (gAbort = true) //allow escape if there is an Abort signal given by SM/C
 		{
@@ -29,10 +29,10 @@ float flowPulse(short inputpin, int capturepulses)
 
 	switch (inputpin) //denpending upon which pulse input pin was used, do the math with the correct calibration constant
 	{
-	case gcFlowInPin:
+	case pin_FlowIn:
 		result = ((gCal.meterIN * capturepulses) / (timeend - timestart)) * 60000;  //result converted to quarts per minute.
 		break;
-	case gcFlowOutPin:
+	case pin_FlowOut:
 		result = ((gCal.meterOUT * capturepulses) / (timeend - timestart)) * 60000;
 		break;
 	}

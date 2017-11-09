@@ -94,6 +94,9 @@
     <None Include="sendAnalogData.ino">
       <FileType>CppCode</FileType>
     </None>
+    <None Include="states.ino">
+      <FileType>CppCode</FileType>
+    </None>
     <None Include="verifyNoFlowNoPressure.ino">
       <FileType>CppCode</FileType>
     </None>

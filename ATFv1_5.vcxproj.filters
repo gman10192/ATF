@@ -22,6 +22,7 @@
     <None Include="getAnalogData.ino" />
     <None Include="sendAnalogData.ino" />
     <None Include="verifyNoFlowNoPressure.ino" />
+    <None Include="states.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.ATFv1_5.vsarduino.h">
