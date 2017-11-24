@@ -82,10 +82,7 @@ typedef void *__builtin_va_list;
 #include "flowTime.ino"
 #include "getAnalogData.ino"
 #include "sendAnalogData.ino"
-#include "stateExecute.ino"
-#include "stateManager.ino"
-#include "stateResetting.ino"
-#include "stateStarting.ino"
+#include "states.ino"
 #include "verifyNoFlowNoPressure.ino"
 #endif
 #endif
